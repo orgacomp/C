@@ -455,7 +455,11 @@ Ahora que vimos funciones, podemos ver el proceso de compilación de C
 ![compilation](img/C-compilation.png)
 
 Como se puede observar, todo empieza con una serie de módulos `.c` y header files `.h`. El objetivo de los header files es contener sólo declaraciones, de manera que den a conocer ciertas entidades a los módulos que los incluyan (con la directiva de preprocesador `#include`). El preprocesador resolverá todas sus directivas (`#include`, `#define`, etc) y terminada su fase, entregará una serie de archivos .c al compilador.
-Estos archivos, son compilados uno a uno, por separado en un proceso conocido como *compilación separada*.
+Estos archivos, son compilados uno a uno, por separado en un proceso conocido como *compilación separada*. 
+
+Cada archivo compilado, genera un archivo objeto, convencionalmente con el mismo nombre, pero con extensión `.o`. Cada uno de estos archivos, hasta el momento, no sabe de la existencia del resto. Es más, podemos estar utilizando en un archivo una función o variable **definida** en otro. El compilador solamente mira que estemos haciendo un uso correcto de la función (que pasemos bien sus parámetros, en orden, tipo y número y que recibamos el valor de retorno con el tipo correcto). Para eso sólo necesita saber la "firma" o "prototipo" de una función, que es básicamente la información que nos brinda la **declaración** de la misma.
+
+El proceso continúa con el **linker**, que se encarga de armar un único archivo binario(ya sea un ejecutable o una biblioteca), a partir de todos los archivos `.o` y de referencias a funciones que se encuentren en otras bibliotecas, propias del sistema. Es en este momento, en donde se resuelve que el llamado de una función desde un archivo vaya al código contenido en el otro. El linker se encarga de armar y resolver todas las referencias a funciones y variables que hasta el momento venían siendo "promesas" de que se encontraban en otro lado. Una vez armado y resueltas todas las referencias, el linker ensambla un archivo ejecutable, listo para que el sistema operativo, a través un módulo llamado **loader**, pueda ejecutar el programa correctamente.
 
 <div style="page-break-after: always;"></div>
 
