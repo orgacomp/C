@@ -1,14 +1,40 @@
 ## Tipos de datos
 
+Veamos los tipos de datos enteros nativos de C:
 
-|Tipo|Espacio ocupado| Rango  |
-|---|---|---|
-|char|1 byte| -127 a 127|
-|unsigned char|1 byte| 0 a 255|
-|short|2 bytes| -32768 a 32767|
-|unsigned short|2 bytes| 0 a 65535|
-|int|4 bytes| 2147483648 a 2147483647  |
-|unsigned int|4 bytes| 0 a 4294967295  |
+|Tipo|Espacio ocupado| Rango  ||
+|---|---|---|---|
+|char|1 byte| -128 a 127 ó 0 a 255        |$-2^7$ a $2^7 - 1$ ó $0$ a $2^8 - 1$|
+|unsigned char|1 byte| 0 a 255            |$0$ a $2^8 - 1$|
+|signed char|1 byte| -128 a 127           |$-2^7$ a $2^7 - 1$|
+|short|2 bytes| -32768 a 32767            |$-2^{15}$ a $2^{15} - 1$|
+|unsigned short|2 bytes| 0 a 65535        |$0$ a $2^{16} - 1$|
+|int| usualmente 4 bytes| -2147483648 a 2147483647     |$-2^{31}$ a $2^{31} - 1$|
+|unsigned int| usualmente 4 bytes| 0 a 4294967295     |$0$ a $2^{32} - 1$|
+|long| usualmente 8 bytes| -9223372036854775808 a 9223372036854775807     |$-2^{63}$ a $2^{63} - 1$|
+|unsigned long| usualmente 8 bytes| 0 a 18446744073709551615     |$0$ a $2^{64} - 1$|
+
+Como vemos, no tenemos garantías absolutas del tamaño en bytes que va a ocupar cada tipo de datos y en el caso de un *plain char*, tampoco tenemos garantía de su *signedness* (signo). El tamaño es dependiente del compilador utilizado para una arquitectura determinada. Lo que sí podemos decir es que *generalmente* en arquitecturas de 64 bits, el **char** es **signed**, el **int** ocupa 4 bytes y el **long** ocupa 8 bytes.
+
+También y para evitar este problema, C dispone de tipos de longitud fija, que deben ser preferidos en donde esta ambigüedad de los largos nos pueda  traer problemas.
+
+Para usarlos debemos incluir `stdint.h` (`#include <stdint.h>`)
+
+Tipos signados:
+
+- **int8_t**  (8 bits con signo)
+- **int16_t** (16 bits con signo)
+- **int32_t** (32 bits con signo)
+- **int64_t** (64 bits con signo)
+
+Tipos sin signo:
+
+- **uint8_t**  (8 bits sin signo)
+- **uint16_t** (16 bits sin signo)
+- **uint32_t** (32 bits sin signo)
+- **uint64_t** (64 bits sin signo)
+
+Usando estos tipos **tenemos garantía** de que el tamaño es el especificado en el nombre del tipo.
 
 ## Comentar
 
