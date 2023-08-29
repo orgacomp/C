@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -std=c11 -O0 -ggdb -no-pie
 LIBS:=-lm
+TARGETS= typedef.o
 
 all: typedef
 
@@ -12,4 +13,4 @@ typedef.o: typedef.c
 
 clean:
 	rm -f *.o
-	rm -f typedef.o
+	rm -f $(TARGETS)
