@@ -24,6 +24,12 @@ switch : switch.o
 switch.o: switch.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
+size_t : size_t.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+size_t.o: size_t.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
 clean:
 	rm -f *.o
 	rm -f $(TARGETS)
