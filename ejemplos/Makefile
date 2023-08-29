@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -std=c11 -O0 -ggdb -no-pie
 LIBS:=-lm
 
-TARGETS:=typedef ifelse switch size_t for while do_while funciones
+TARGETS:=typedef ifelse switch size_t for while do_while funciones estructuras strings arreglosMalloc
 
 all: $(TARGETS)
 
@@ -52,6 +52,22 @@ funciones: funciones.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 funciones.o: funciones.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
+estructuras: estructuras.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+estructuras.o: estructuras.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
+strings: strings.o
+	$(CC) $(CFLAGS) $^ -o $@
+strings.o: strings.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
+arreglosMalloc: arreglosMalloc.o
+	$(CC) $(CFLAGS) $^ -o $@
+arreglosMalloc.o: arreglosMalloc.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
 clean:
