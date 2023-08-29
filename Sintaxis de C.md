@@ -36,22 +36,76 @@ Tipos sin signo:
 
 Usando estos tipos **tenemos garantía** de que el tamaño es el especificado en el nombre del tipo.
 
-## Comentar
+### size_t
+Existe un tipo de datos llamado `size_t` que puede guardar el tamaño teórico máximo un objeto de cualquier tipo, incluyendo el tamaño de los arrays. Es de tipo entero sin signo.
 
-Se comenta con `` /* */ `` o con ``//``
+Se suele usar para indexar arrays. También es el tipo resultante del operador `sizeof` (operador que devuelve el tamaño en bytes de un objeto o tipo)
 
-## Variables
+Ejemplo:
 
-La sintaxis es:
+```C
+int array[34]
 
-```C++
-<tipo de dato> nombre_var = <tipo de dato que queremos que tome>;
+size_t len = sizeof(array) / sizeof(int); 
+```
+
+En el ejemplo anterior, `len` vale 34, ya que el tamaño del array (en bytes) es: 34 * 4 y el tamaño de un `int` es 4
+
+## Comentarios
+
+Se dispone de 2 tipos de comentarios:
+
+- En bloque: `` /* */ ``
+- En línea: ``//``
+
+```C
+/* Esto es un comentario en bloque, suele usarse para documentar funciones o módulos 
+ * completos. Los asteriscos agregados en el margen izquierdo son puramente cosméticos, 
+ * no cumple ninguna función sintáctica, pero se suelen usar porque quedan bien. Un ejemplo
+ * abajo
+ */
+
+ /* Función count_zeros 
+ * 
+ * array es un array de ints
+ * length es la cantidad de elementos del array
+ * 
+ * Devuelve la cantidad de ceros presentes en el array
+ */
+size_t count_zeros(int* array, size_t length){
+    size_t ceros = 0; // inicializo en 0 la cantidad de ceros
+    for (size_t i=0; i<length, ++i){ 
+        if(array[i] == 0){  
+            ceros++; // incremento la cantidad de ceros
+        }
+    }
+    return ceros;
+}
+```
+
+## Declaración de variables
+
+Ya estuvimos viendo algunos ejemplos antes, pero formalmente la sintaxis es:
+
+```C
+<tipo de dato> nombre_var = <valor inicial>;
 ```
 
 o
 
-```C++
-<tipo de dato> nombre_var; //toma valor predeterminado del tipo de dato
+```C
+<tipo de dato> nombre_var; // puede contener basura dependiendo de donde la definamos
+```
+
+Ejemplos:
+
+```C
+uint64_t mi_var = 0;
+int mi_int = -985;
+uint8_t mi_byte = 24;
+
+int i;
+int j = i;
 ```
 
 ### typedef
