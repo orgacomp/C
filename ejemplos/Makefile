@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -std=c11 -O0 -ggdb -no-pie
 LIBS:=-lm
 
-TARGETS:=typedef ifelse switch size_t for
+TARGETS:=typedef ifelse switch size_t for while
 
 all: $(TARGETS)
 
@@ -34,6 +34,12 @@ for : for.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 for.o: for.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
+while: while.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+while.o: while.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
 clean:
