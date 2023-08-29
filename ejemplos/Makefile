@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -std=c11 -O0 -ggdb -no-pie
 LIBS:=-lm
 
-TARGETS:=typedef ifelse switch size_t for while do_while
+TARGETS:=typedef ifelse switch size_t for while do_while funciones
 
 all: $(TARGETS)
 
@@ -48,6 +48,11 @@ do_while: do_while.o
 do_while.o: do_while.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
+funciones: funciones.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+funciones.o: funciones.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
 clean:
 	rm -f *.o
