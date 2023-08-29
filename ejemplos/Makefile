@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -std=c11 -O0 -ggdb -no-pie
 LIBS:=-lm
 
-TARGETS:=typedef ifelse
+TARGETS:=typedef ifelse switch
 
 all: $(TARGETS)
 
@@ -16,6 +16,12 @@ ifelse : ifelse.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 ifelse.o: if_else.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
+switch : switch.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+switch.o: switch.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
 clean:
