@@ -54,6 +54,12 @@ funciones: funciones.o
 funciones.o: funciones.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
+estructuras: estructuras.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+estructuras.o: estructuras.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
 clean:
 	rm -f *.o
 	rm -f $(TARGETS)
