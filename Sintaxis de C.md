@@ -148,8 +148,10 @@ En definitiva `typedef` nos deja darle un significado declarativo a nuestro tipo
 Hay 2 formas de definirlas:
 
  * ``const float PI = 3.1415926 ``
- * ``#define PI 3.1415926 //en forma de etiqueta, es más lindo``
+ * ``#define PI 3.1415926``
  
+La segunda forma es un reemplazo de texto (donde dice PI en el código se reemplazará por el **texto** 3.1415926). Esto ocurre previo a la compilación, donde se invoca a una herramienta llamada **preprocesador**, Esta herramienta se encarga de hacer todos estos tipos de manipulaciones de texto, previo a la compilación. Su uso se denota porque la línea comienza con el carácter `#`. Otro ejemplo típoco donde actúa el preprocesador además de en los `#define` es en los `#include`, que básicamente reemplazan esa línea con el contenido del archivo que se incluye.
+
 ## Operadores 
 
 |  Operador |  Significado  |
@@ -157,19 +159,27 @@ Hay 2 formas de definirlas:
 | ``=`` | Asignación|
 |``+ `` |Suma |
 | ``-``  | Resta|
-| ``sqrt()`` | Raíz cuadrada|
+| ``sqrt()`` | Raíz cuadrada (debe incluirse `math.h`)
 | ``*``  | Multiplicación|
-| ``/``  | División entera|
+| ``/``  | División|
 | ``%``  | Módulo|
 
+
 * `` x (+, - , * , /)= y ``: Es lo mismo que hacer ``x = x (+, - , * , /) y``
-* ``x % y ``: Es el resto de la división entre `` x ``  e  `` y ``.
-+ ``x / y ``: Si los dos valores son int, es una división entera. Si alguno de los dos es un float, hace la división normal. Si no queremos hacer la división entera y tenemos dos int, los casteamos a ``float32`` y hacemos la división. Ejemplo: ``float32(6) / float(10) ``.
+
+Ejemplo:
+```C
+x += y; // lo mismo que x = x + y;
+x /= y; // lo mismo que x = x / y;
+```
+
+* `x % y`: Es el resto de la división entre `x`  e  `y`.
++ `x / y`: Si los dos valores son int, es una división entera. Si alguno de los dos es un float, hace la división con decimales. Si no queremos hacer la división entera y tenemos dos int, podemos castear alguno de los dos a `float` o `double` y hacemos la división. Ejemplo: `float(6) / 10 `. También podemos hacer: `(1.0 * 6) / 10`. Tener en cuenta que esa constante `1.0` se interpreta como un `double` por default. Si queremos que se interprete como un float, podemos escribir `1.0f`.
 
 <div style="page-break-after: always;"></div>
 
 ## Control de flujo
-### Operadores
+### Operadores lógicos
 
 | Operador  | Significado  |
 |---|---|
@@ -177,17 +187,20 @@ Hay 2 formas de definirlas:
 | ``!=`` | Distinto|
 | ``&&`` | AND |
 |``!`` | NOT |
-| \| \|   |  OR |
+| \|\|   |  OR |
 | ``>``   | Mayor|
 |``<``   | Menor|
 | ``>=`` | Mayor o igual|
 | ``<=``| Menor o igual|
 
+Algo a tener en cuenta: los operadores lógicos en C devuelven `0` si el resultado es falso y devuelven `1` si el resultado es verdadero. Nativamente, C no dispone de tipos booleanos del estilo `true` y `false` (como por ejemplo C++ que dispone del tipo `bool`)
+
+
 ### If 
 La sintaxis es:
 
 ```C++
-if(condición)
+if(<condición>)
 {
   //código
 }
@@ -197,11 +210,11 @@ if(condición)
 La sintaxis es:
 
 ```C++
-if(condición)
+if(<condición>)
 {
   //código
 }
-else if (condición)
+else if (<condición>)
 {
   //código
 }
@@ -217,8 +230,9 @@ else
 
 Es una estructura de control que me permite elegir entre varias posibilidades según ciertas condiciones.
 
-Este va a evaluar el valor de la variable en cada case y si la condición se cumple, entra el case y ejecuta ese bloque y TODOS  los que le siguen. En la condición tenemos que poner valores que tengan sentido con respecto al valor de dicha variable, sino no compila.  
-Ningún case tiene el break implícito. Si se quiere modificar ese comportamiento se debe utilizar ``break`` (este cortará el switch por completo). 
+Este va a evaluar el valor de la variable en cada `case` y si la condición se cumple, entra en dicho `case` y ejecuta ese bloque y TODOS los que le siguen. Este comportamiento se denomica *fall-through*. Si queremos terminar el case y salir, debemos poner un `break` explícitamente.
+
+En la condición tenemos que poner valores que tengan sentido con respecto al valor de dicha variable, sino nos tirará un error. Sólo funciona con tipos cuya representación sea entera.
 
 La sintaxis es:
 
@@ -230,7 +244,7 @@ switch(variable)
   case valor:
     //código
   default: 
-    //código
+    // este caso es por si no matchea ninguno de los anteriores
 }
 ```
 
@@ -243,42 +257,38 @@ int main(){
 
    switch (dia) {
 
-   case (0):
+       case (0):
+       case (1):
+           printf("lunes\n");
 
-   case (1):
+       case (2):
+           printf("martes\n");
 
-       printf("lunes\n");
+       case (3):
+           printf("miercoles\n");
+           break;
 
-   case (2):
-
-       printf("martes\n");
-
-   case (3):
-
-       printf("miercoles\n");
-
-       break;
-
-   default:
-
-       printf("jueves\n");
+       default:
+           printf("jueves\n");
 
    }
 
    return 0;
 
 }
+```
+Repetimos: ningún case tiene un break implícito. Si se quiere modificar ese comportamiento se debe utilizar `break` (este cortará el `switch` por completo). 
 
->>
+En el ejemplo, vemos que hay un *fall-through* desde el `case (2)` hasta el `case(3)`
 
+
+```output
 martes 
-
 miercoles
-
 ```
 
 ### Operador Ternario 
-Sirve para cuando tenemos un solo ``if`` y un ``else``. Lo que hace es si la ``condición`` es ``true`` devuelve la ``expresión1``, sino la ``expresión2``. 
+Sirve para cuando tenemos un solo `if` y un ``else``. Lo que hace es si la ``condición`` es **verdadera* devuelve la `expresión1`, sino la ``expresión2``. 
 
 Su sintaxis es:
 
@@ -294,7 +304,7 @@ int main(){
    int i = 2;
    int j = 5;
 
-   int k = i < j ? 1 : 0;
+   int k = i < j ? 1 : 0; 
    int m = i > j ? 1 : 0;
 
    printf("%d\n", k);
@@ -303,9 +313,28 @@ int main(){
    return 0;
 
 } 
->> 1
->> 0
 ```
+Salida:
+```output
+1
+0
+```
+
+Curiosamente las líneas
+
+```C
+int k = i < j ? 1 : 0;
+int m = i > j ? 1 : 0;
+
+```
+
+podrían haberse escrito también como:
+```C
+int k = i < j;
+int m = i > j;
+```
+
+¿Por qué?
 
 ## Ciclos
 
@@ -329,14 +358,14 @@ for(inicialización de variable; condición; incremento de variable)
 
 Cualquiera de los segmentos puede dejarse en blanco.
 
-La ``inicialización de variable`` se ejecuta una sola vez, luego evalúa la ``condición``. Si esta se cumple se ejecuta el bloque y luego el ``incremento de variable``. Esto se repite hasta que la condición sea Falsa y ahí sale del ciclo.
+La ``inicialización de variable`` se ejecuta una sola vez, luego evalúa la ``condición``. La `condición` se evalúa en todo ciclo, incluyendo el primero y en general es la responsable de que el ciclo termine (salvo que haya un `break`). Si esta se cumple se ejecuta el bloque y luego el `incremento de variable`. Esto se repite hasta que la condición sea falsa y ahí sale del ciclo.
 
-Puede introducirse más de una  ``inicialización de variable``  o más de un ``incremento de variable`` separando las sentencias por coma ``,``.
+Puede introducirse más de una  `inicialización de variable`  o más de un `incremento de variable` separando las sentencias por coma ``,``.
 
 Ejemplo:
 
 ``` C++
-for (int i = 0, j=1; i<10 && j<5 ; i++, j++) {
+for (int i = 0, j = 1; i<10 && j<5 ; i++, j++) {
  ...
 }
 ```
