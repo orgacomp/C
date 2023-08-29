@@ -21,4 +21,3 @@ int main(){
     imprimir(cuad(numero));
     printf("\n");
 }
-kk
