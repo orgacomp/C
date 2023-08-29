@@ -3,10 +3,10 @@
 
 int main() {
 
-    int tamanio; // Tamaño del arreglo
+    size_t tamanio; // Tamaño del arreglo
     do {
         printf("Ingrese un número positivo: ");
-        scanf("%d", &tamanio);
+        scanf("%zu", &tamanio);
     } while (tamanio <= 0);
 
     int* arreglo = (int*)malloc(tamanio * sizeof(int)); // Asignamos memoria para el arreglo
@@ -17,13 +17,13 @@ int main() {
     }
 
     // Inicialización del arreglo con algunos valores
-    for (int i = 0; i < tamanio; i++) {
+    for (size_t i = 0; i < tamanio; i++) {
         arreglo[i] = i * 10;
     }
 
     // Acceso e impresión de los valores del arreglo
     printf("Valores del arreglo:\n");
-    for (int i = 0; i < tamanio; i++) {
+    for (size_t i = 0; i < tamanio; i++) {
         printf("%d ", arreglo[i]);
     }
     printf("\n");
