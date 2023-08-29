@@ -395,6 +395,9 @@ do
 <div style="page-break-after: always;"></div>
 
 ## Funciones
+
+Prestar especial atención en la siguiente sección la diferencia entre *declaración* y *definición*
+
 ### Declaración de funciones
 
 La sintaxis es:
@@ -403,7 +406,8 @@ La sintaxis es:
 <tipo de dato> nombreFuncion (<tipo de dato> arg1 , ...);
 ```
 
-Las funciones deben ser declaradas antes de ser utilizadas.  Los nombres de los argumentos son opcionales.
+Las funciones, en la mayoría de los casos, deben ser declaradas antes de ser utilizadas.  Los nombres de los argumentos son opcionales en las declaraciones.
+Indicamos que es una declaración porque termina en `;`. Una vez declarada, nos queda definirla.
 
 ### Definición de funciones 
 
@@ -419,15 +423,11 @@ Ejemplo:
 
 ``` C++
 int cuad(int n) {
- return n * n;
+    return n * n;
 }
 ``` 
 
-Las funciones no necesitan ser definidas antes de su uso, solo necesitan ser declaradas. Sin embargo, eventualmente la función debe ser definida para que pueda ser enlazada.
-
-Si una función ha sido previamente declarada, debe ser definida con el mismo valor de retorno y tipos de argumentos (o se creará una nueva función sobrecargada), pero los nombres de los parámetros no necesitan ser los mismos.
-  
-Si no queremos que devuelva nada utilizamos como tipo de dato void:
+Si en una función no queremos que devuelva nada utilizamos como tipo de dato void:
 
 ```C++
 void func() {
@@ -435,8 +435,27 @@ void func() {
    printf("%d\n", 5);  // no devuelve nada
 
 }
->> 5
 ```
+Salida:
+```output
+5
+```
+
+Una cuestión técnica: las funciones no necesitan ser definidas para que el archivo pueda compilar correctamente, solo necesitan ser declaradas. Sin embargo, cuando querramos armar el archivo ejecutable, el linker buscará en todos los archivos objeto (los .o) que le pasemos por la definición de dicha función. En caso de no encontrar una definición, nos devovlerá un error del tipo `undefined reference` o similar.
+
+Si una función ha sido previamente declarada, debe ser definida con el mismo valor de retorno y tipos de argumentos, pero los nombres de los parámetros no necesitan ser los mismos, en la declaración y en la definición, aunque es recomendable que lo sean, por razones de claridad.
+
+Otra cosa a tener en cuenta es que una entidad en C puede ser declarada muchas veces pero sólo puede ser definida una sola vez. Las múltiples declaraciones que el compilador encuentre de la misma entidad tienen que ser compatibles entre sí.
+
+
+### Ciclo de compilación
+
+Ahora que vimos funciones, podemos ver el proceso de compilación de C
+
+![compilation](img/C-compilation.png)
+
+Como se puede observar, todo empieza con una serie de módulos `.c` y header files `.h`. El objetivo de los header files es contener sólo declaraciones, de manera que den a conocer ciertas entidades a los módulos que los incluyan (con la directiva de preprocesador `#include`). El preprocesador resolverá todas sus directivas (`#include`, `#define`, etc) y terminada su fase, entregará una serie de archivos .c al compilador.
+Estos archivos, son compilados uno a uno, por separado en un proceso conocido como *compilación separada*.
 
 <div style="page-break-after: always;"></div>
 
