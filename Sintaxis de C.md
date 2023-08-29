@@ -44,7 +44,7 @@ Se suele usar para indexar arrays. También es el tipo resultante del operador `
 Ejemplo:
 
 ```C
-int array[34]
+int array[34];
 
 size_t len = sizeof(array) / sizeof(int); 
 ```
@@ -110,11 +110,12 @@ int j = i;
 
 ### typedef
 
-Sirve para definir un nuevo tipo de dato con un nombre a elección a partir de un tipo de dato ya existente. Usualmente se lo utiliza para construir nombres más cortos o más significativos para tipos ya definidos por C o para tipos que haya declarado.
+Sirve para definir un nuevo tipo de dato con un nombre a elección a partir de un tipo de dato ya existente. Usualmente se lo utiliza para construir nombres más cortos o más significativos para tipos ya definidos por C o para tipos que hayan sido previamente declarados. 
+
 
 La sintaxis es:
 
-```C++
+```C
 typedef <tipo> <nuevo nombre>;
 ```
 
@@ -129,13 +130,18 @@ int main(){
    typedef int edad_t;
 
    edad_t edad_juan = 23;
-
    printf("%d\n", edad_juan);
 
    return 0;
 } 
->> 23
 ```
+Este programa imprimirá una vez compilado y ejecutado:
+
+```output
+34
+```
+
+En definitiva `typedef` nos deja darle un significado declarativo a nuestro tipo de datos, que tiene que ver más con el uso que le estamos dando en nuestro programa. Además, si en algún momento queremos cambiar el tipo de por ejemplo, las variables que almacenan datos de edad, nos basta con cambiar la declaración en el `typedef` una sola vez.
 
 ## Constantes
 
