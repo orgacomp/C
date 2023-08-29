@@ -60,6 +60,11 @@ estructuras: estructuras.o
 estructuras.o: estructuras.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
 
+strings: strings.o
+	$(CC) $(CFLAGS) $^ -o $@
+strings.o: strings.c
+	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+
 clean:
 	rm -f *.o
 	rm -f $(TARGETS)
