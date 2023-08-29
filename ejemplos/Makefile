@@ -1,12 +1,13 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -std=c11 -O0 -ggdb -no-pie
 LIBS:=-lm
-TARGETS= typedef.o
 
-all: typedef
+TARGETS:=typedef
+
+all: $(TARGETS)
 
 typedef : typedef.o
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+	$(CC) $(CFLAGS) $^ -o $@
 
 typedef.o: typedef.c
 	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
