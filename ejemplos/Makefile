@@ -22,7 +22,7 @@ switch : switch.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 switch.o: switch.c
-	$(CC) $(CFLAGS) -c $^ -o $@ $(LIBS)
+	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -c $^ -o $@ $(LIBS)
 
 size_t : size_t.o
 	$(CC) $(CFLAGS) $^ -o $@
