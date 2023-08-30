@@ -465,55 +465,24 @@ El proceso continúa con el **linker**, que se encarga de armar un único archiv
 
 ## Punteros 
 
+Hemos llegado a una de las funcionalidades de C que lo que distingue de otros lenguajes: punteros. Pero, ¿Qué es un puntero? Básicamente, un puntero es una variable que almacena el valor de memoria de otra entidad. Esta otra entidad puede ser otra variable, una función, otro puntero, etc. Incluso puede almacenar posiciones de memoria *raw*, es decir, que el puntero per sé no tenga noción de a qué está apuntando, simplemente sabe que tiene una posición de memoria almacenada. Esa posición puede ser válida o inválida incluso, recae en nosotros saber a qué está apuntando realmente nuestro puntero.
+
 La sintaxis es:
 
 ``` C++
-int x = 4;
-int p = &x; // obtiene la dirección de memoria de x
-*p; // resulta en el valor 4
+int x = 4;       // variable normal
+int *p = &x;     // obtiene la dirección de memoria de x y la almacena en el puntero p
+int y = *p + 6;  // y resulta en el valor 10. Se usa el operador "*" para desreferenciar un puntero
 ``` 
 
  * El asterisco desreferencia el puntero.
- * El valor de la expresión `*p` es el valor de la variable cuya dirección de memoria es apuntada por el identificador.
+ * El valor de la expresión `*p` es el valor de la variable cuya dirección de memoria es apuntada por el identificador. 
+ 
+ En este caso p es un puntero que contiene la dirección de la variable `x`. Si quiero acceder al valor contenido en `x`, hago `*p` (tanto para lectura de dicho valor, como para escritura)
 
-## Estructuras
-### Definición de estructuras
+ Es decir, con un puntero podemos acceder indirectamente al valor de otra variable, tanto para leerlo, como para escribirlo. Esto último, tiene una utilidad subyacente muy grande: si queremos pasar a una función, un parámetro que en realidad es un objeto pesado (piensen en un array, por ejemplo), podemos pasar un puntero y entonces, ¡lo único que se va a copiar es el valor del puntero! La función puede acceder a los valores del array sin problemas, a través del puntero y nos evitamos tener que copiar un montón de memoria de manera ineficiente.
 
-La sintaxis es:
-
-``` C++
-typedef struct s_nombreStruct { // s_ no es necesario pero se suele usar
-	<tipo de dato> atributo_1;
-    // ...
-    <tipo de dato> atributo_n;
-} nombreStruct_t;
-```
-
-### Declaración de punteros a estructuras
-
-La sintaxis es:
-
-``` C++
-struct_nombre_t* nombreInstancia = (struct_nombre_t*)malloc(sizeof(struct_nombre_t));
-``` 
-
-### Acceso a atributos a estructura (cuando no es puntero)
-
-La sintaxis es:
-
-``` C++
-nombreInstancia.structAtributo;
-```
-
-### Acceso a atributos a puntero de estructura
-
-La sintaxis es:
-
-``` C++
-punteroInstancia -> structAtributo;
-```
-
-<div style="page-break-after: always;"></div>
+La lógica detrás del uso de punteros se entiende mejor a través de ejemplos concretos. Traten de mantener en mente estas nociones básicas y sigamos avanzando. Pronto se irán aclarando los conceptos.
 
 ## Arreglos
 ### Declaración de arreglos
@@ -584,6 +553,48 @@ if (strcmp(s1, s2) == 0) {...}
 >> true
 
 ``` 
+
+
+## Estructuras
+### Definición de estructuras
+
+La sintaxis es:
+
+``` C++
+typedef struct s_nombreStruct { // s_ no es necesario pero se suele usar
+	<tipo de dato> atributo_1;
+    // ...
+    <tipo de dato> atributo_n;
+} nombreStruct_t;
+```
+
+### Declaración de punteros a estructuras
+
+La sintaxis es:
+
+``` C++
+struct_nombre_t* nombreInstancia = (struct_nombre_t*)malloc(sizeof(struct_nombre_t));
+``` 
+
+### Acceso a atributos a estructura (cuando no es puntero)
+
+La sintaxis es:
+
+``` C++
+nombreInstancia.structAtributo;
+```
+
+### Acceso a atributos a puntero de estructura
+
+La sintaxis es:
+
+``` C++
+punteroInstancia -> structAtributo;
+```
+
+<div style="page-break-after: always;"></div>
+
+
 
 ## Malloc
 En C/C++, `malloc` es una función utilizada para asignar memoria dinámica en el heap durante el tiempo de ejecución de un programa. Permite reservar un bloque de memoria de tamaño específico y devuelve un puntero a la dirección base de ese bloque.¿
