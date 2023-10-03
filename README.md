@@ -496,15 +496,78 @@ La sintaxis es:
 ``` C++
 int x = 4;       // variable normal
 int *p = &x;     // obtiene la dirección de memoria de x y la almacena en el puntero p
+``` 
+
+![compilation](img/pointer.png)
+
+ * `x` es una variable de tipo entera (`int`) que ocupa 4 bytes.
+ * `p` es una varible de tipo puntero a entero (`int *`) que ocupa 8 bytes
+
+ Notar que sin importar el tipo apuntado, los punteros ocupan SIEMPRE 8 bytes en una arquitectura de 64 bits. Esto es así porque las direcciones de memoria son de 8 bytes en dicha arquitectura. En una arquitectura de 32 bits, los punteros ocupan 4 bytes.
+
+
+``` C++
 int y = *p + 6;  // y resulta en el valor 10. Se usa el operador "*" para desreferenciar un puntero
 ``` 
 
- * El asterisco desreferencia el puntero.
- * El valor de la expresión `*p` es el valor de la variable cuya dirección de memoria es apuntada por el identificador. 
+![compilation](img/pointer-read.png)
+
+ * El asterisco desreferencia el puntero. Notar la diferencia en el uso del asterisco en la declaración y como operador.
+ * El valor de la expresión `*p` es el valor de la variable cuya dirección de memoria es apuntada por el identificador. Se usa el operador `&`, *address-of*.
  
  En este caso p es un puntero que contiene la dirección de la variable `x`. Si quiero acceder al valor contenido en `x`, hago `*p` (tanto para lectura de dicho valor, como para escritura)
 
  Es decir, con un puntero podemos acceder indirectamente al valor de otra variable, tanto para leerlo, como para escribirlo. Esto último, tiene una utilidad subyacente muy grande: si queremos pasar a una función, un parámetro que en realidad es un objeto pesado (piensen en un array, por ejemplo), podemos pasar un puntero y entonces, ¡lo único que se va a copiar es el valor del puntero! La función puede acceder a los valores del array sin problemas, a través del puntero y nos evitamos tener que copiar un montón de memoria de manera ineficiente.
+
+### Puntero a NULL
+
+``` C++
+int *px = NULL;
+``` 
+
+Básicamente, un puntero a NULL es un puntero que no apunta a nada. Es decir, no tiene una dirección de memoria válida. Esto es útil para inicializar punteros y luego chequear si apuntan a algo o no. Si no apuntan a nada, podemos decir que están *libres* y podemos asignarles una dirección de memoria válida.
+
+Un puntero a NULL y un puntero no inicializado son diferentes, ya que el puntero no inicializado puede apuntar a cualquier dirección de memoria, incluso a una dirección de memoria válida. En cambio, un puntero a NULL no apunta a nada.
+
+Notar que curiosamente, podemos inicializar un puntero con el valor 0, pero con ningún otro valor:
+
+```C++
+int *pi = 0; // es lo mismo que int *pi = NULL;
+pi = NULL    // también es válido
+pi = 100;    // esto no es válido
+pi = num;    // esto tampoco es válido
+```
+
+Un ejemplo de cómo se puede usar el valor del puntero a NULL, sería:
+
+```C++
+if(pi){
+    // pi no es NULL
+}
+else{
+    // pi es NULL
+}
+
+```
+
+De esta manera, podemos saber si el puntero tiene un valor válido o no.
+
+No confundir NULL con el carácter nulo. El carácter nulo es el carácter `\0` y es un carácter como cualquier otro. NULL es un puntero que no apunta a nada.
+
+### Puntero a void
+
+``` C++
+void* p = NULL;
+```
+
+Un puntero a void es un puntero que no tiene tipo. Es decir, no sabemos a qué tipo de dato apunta. Esto es útil para cuando queremos pasar un puntero a una función, pero no sabemos a qué tipo de dato apunta. Por ejemplo, si queremos pasar un puntero a una función que imprime la dirección de memoria a la que apunta, podemos hacer:
+
+```C++
+void print_value(void* p){
+    printf("%x\n", p); // Imprimimos la dirección a la que apunta el puntero p en hexadecimal
+}
+```
+
 
 La lógica detrás del uso de punteros se entiende mejor a través de ejemplos concretos. Traten de mantener en mente estas nociones básicas y sigamos avanzando. Pronto se irán aclarando los conceptos.
 
