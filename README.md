@@ -61,9 +61,11 @@ Tipos sin signo:
 Usando estos tipos **tenemos garantía** de que el tamaño es el especificado en el nombre del tipo.
 
 ### size_t
-Existe un tipo de datos llamado `size_t` que puede guardar el tamaño teórico máximo un objeto de cualquier tipo, incluyendo el tamaño de los arrays. Es de tipo entero sin signo.
+Existe un tipo de datos llamado `size_t` que puede guardar el tamaño teórico máximo un objeto de cualquier tipo, incluyendo el tamaño de los arrays. Es de tipo **entero sin signo**.
 
 Se suele usar para indexar arrays. También es el tipo resultante del operador `sizeof` (operador que devuelve el tamaño en bytes de un objeto o tipo)
+
+Es una buena práctica usar `size_t` cuando declaramos variables para tamaños como el número de caracteres de un string, el tamaño de un array, etc.
 
 Ejemplo:
 
@@ -111,15 +113,19 @@ size_t count_zeros(int* array, size_t length){
 
 Ya estuvimos viendo algunos ejemplos antes, pero formalmente la sintaxis es:
 
-```C
-<tipo de dato> nombre_var = <valor inicial>;
-```
+<pre>
+<i>tipo</i> <i><b>nombre_var</b></i> = <i>valor inicial</i>;
+</pre>
 
 o
 
-```C
-<tipo de dato> nombre_var; // puede contener basura dependiendo de donde la definamos
-```
+<pre>
+<i>tipo</i> <i><b>nombre_var</b></i>;
+</pre>
+
+
+
+En este segundo caso, puede contener basura dependiendo de donde la definamos
 
 Ejemplos:
 
@@ -139,10 +145,9 @@ Sirve para definir un nuevo tipo de dato con un nombre a elección a partir de u
 
 La sintaxis es:
 
-```C
-typedef <tipo> <nuevo nombre>;
-```
-
+<pre>
+typedef <i>tipo</i> <i><b>nuevo_nombre</b></i>;
+</pre>
 
 <div style="page-break-after: always;"></div>
 
@@ -223,30 +228,27 @@ Algo a tener en cuenta: los operadores lógicos en C devuelven `0` si el resulta
 ### If 
 La sintaxis es:
 
-```C++
-if(<condición>)
-{
-  //código
+<pre>
+if(<i>condición</i>){
+    <i>código</i>
 }
-```
+</pre>
 
 ### if - else
+
 La sintaxis es:
 
-```C++
-if(<condición>)
-{
-  //código
+<pre>
+if(<i>condición</i>){
+    <i>código</i>
 }
-else if (<condición>)
-{
-  //código
+else if (<i>condición</i>){
+  <i>código</i>
 }
-else
-{
-  //código
+else{
+  <i>código</i>
 }
-```
+</pre>
 
 <div style="page-break-after: always;"></div>
 
@@ -260,17 +262,17 @@ En la condición tenemos que poner valores que tengan sentido con respecto al va
 
 La sintaxis es:
 
-```C++
-switch(variable)
+<pre>
+switch(<i>variable</i>)
 {
-  case valor: 
-    //código
-  case valor:
-    //código
+  case <i>valor_1</i>:
+    <i>código</i>
+  case <i>valor_2</i>:
+    <i>código</i>
   default: 
-    // este caso es por si no matchea ninguno de los anteriores
+    <i>este caso es por si no matchea ninguno de los anteriores</i>
 }
-```
+</pre>
 
 Ejemplo:
 
@@ -316,9 +318,9 @@ Sirve para cuando tenemos un solo `if` y un ``else``. Lo que hace es si la ``con
 
 Su sintaxis es:
 
-```C++
-<condición> ? <expresión1> : <expresión2>;
-```
+<pre>
+<i>condición</i> ? <i>expresión1</i> : <i>expresión2</i>;
+</pre>
 
 Ejemplo:
 
@@ -373,12 +375,12 @@ int m = i > j;
 
 La sintaxis es:
 
-``` C++
-for(inicialización de variable; condición; incremento de variable)
+<pre>
+for(<i>inicialización de variable</i>; <i>condición</i>; <i>incremento de variable</i>)
 {
-  //código
+  <i>código</i>
 }
-```
+</pre>
 
 Cualquiera de los segmentos puede dejarse en blanco.
 
@@ -398,23 +400,23 @@ for (int i = 0, j = 1; i<10 && j<5 ; i++, j++) {
 
 La sintaxis es:
 
-``` C++
-while(condición)
+<pre>
+while(<i>condición</i>)
 {
-  //código
+  <i>código</i>
 }
-```
+</pre>
 
 ### Do - While
 
 La sintaxis es:
 
-``` C++
+<pre>
 do
 {
-  //código
-}while(condición);
-```
+  <i>código</i>
+}while(<i>condición</i>);
+</pre>
 
 <div style="page-break-after: always;"></div>
 
@@ -426,9 +428,9 @@ Prestar especial atención en la siguiente sección la diferencia entre *declara
 
 La sintaxis es:
 
-``` C++
-<tipo de dato> nombreFuncion (<tipo de dato> arg1 , ...);
-```
+<pre>
+<i>tipo</i> <i><b>nombreFuncion</b></i> (<i>tipo</i> <i><b>arg1</b></i> , <i>...</i>);
+</pre>
 
 Las funciones, en la mayoría de los casos, deben ser declaradas antes de ser utilizadas.  Los nombres de los argumentos son opcionales en las declaraciones.
 Indicamos que es una declaración porque termina en `;`. Una vez declarada, nos queda definirla.
@@ -437,11 +439,12 @@ Indicamos que es una declaración porque termina en `;`. Una vez declarada, nos 
 
 La sintaxis es:
 
-``` C++
-<tipo de dato que se devuelve> nombreFuncion (<tipo de dato> arg1 , ...){
-     //código
+<pre>
+<i>tipo</i> <i><b>nombreFuncion</b></i> (<i>tipo</i> <i><b>arg1</b></i> , <i>...</i>)
+{
+    <i>código</i>
 }
-```
+</pre>
 
 Ejemplo:
 
@@ -491,26 +494,31 @@ El proceso continúa con el **linker**, que se encarga de armar un único archiv
 
 Hemos llegado a una de las funcionalidades de C que lo que distingue de otros lenguajes: punteros. Pero, ¿Qué es un puntero? Básicamente, un puntero es una variable que almacena el valor de memoria de otra entidad. Esta otra entidad puede ser otra variable, una función, otro puntero, etc. Incluso puede almacenar posiciones de memoria *raw*, es decir, que el puntero per sé no tenga noción de a qué está apuntando, simplemente sabe que tiene una posición de memoria almacenada. Esa posición puede ser válida o inválida incluso, recae en nosotros saber a qué está apuntando realmente nuestro puntero.
 
-La sintaxis es:
+Ejemplo:
 
 ``` C++
 int x = 4;       // variable normal
 int *p = &x;     // obtiene la dirección de memoria de x y la almacena en el puntero p
 ``` 
 
-![compilation](img/pointer.png)
+![pointers](img/pointer.png)
 
  * `x` es una variable de tipo entera (`int`) que ocupa 4 bytes.
  * `p` es una varible de tipo puntero a entero (`int *`) que ocupa 8 bytes
 
  Notar que sin importar el tipo apuntado, los punteros ocupan SIEMPRE 8 bytes en una arquitectura de 64 bits. Esto es así porque las direcciones de memoria son de 8 bytes en dicha arquitectura. En una arquitectura de 32 bits, los punteros ocupan 4 bytes.
 
+```C++
+size_t size = sizeof(int*); // size es 8 en una arquitectura de 64 bits y 4 en una de 32 bits
+```
+
+## Desreferenciación de punteros 
 
 ``` C++
 int y = *p + 6;  // y resulta en el valor 10. Se usa el operador "*" para desreferenciar un puntero
 ``` 
 
-![compilation](img/pointer-read.png)
+![pointers](img/pointer-read.png)
 
  * El asterisco desreferencia el puntero. Notar la diferencia en el uso del asterisco en la declaración y como operador.
  * El valor de la expresión `*p` es el valor de la variable cuya dirección de memoria es apuntada por el identificador. Se usa el operador `&`, *address-of*.
@@ -568,6 +576,23 @@ void print_value(void* p){
 }
 ```
 
+Un puntero a void nunca será igual a ningún otro puntero. Sin embargo, dos punteros a void que apunten a NULL, serán iguales.
+
+```C++
+int num;
+int *pi = &num;
+printf("Valor de pi: %x\n", pi); // imprime la dirección de memoria de num en hexadecimal
+void *pv = pi;
+pi = (int*) pi; // cast a puntero a int
+printf("Valor de pi: %x\n", pi); // imprime la dirección de memoria de num en hexadecimal
+```
+
+Cuando ejecutamos esto, podemos comprobar que el valor de los punteros es el mismo:
+
+```output
+Valor de pi: 7fffbf7c
+Valor de pi: 7fffbf7c
+```
 
 La lógica detrás del uso de punteros se entiende mejor a través de ejemplos concretos. Traten de mantener en mente estas nociones básicas y sigamos avanzando. Pronto se irán aclarando los conceptos.
 
@@ -576,55 +601,118 @@ La lógica detrás del uso de punteros se entiende mejor a través de ejemplos c
 
 La sintaxis es:
 
-``` C++
-<tipo de dato> nombre_arr[tamaño_arr / vacio] = {elementos}
-```
+<pre>
+<i>tipo de dato</i> <i><b>nombre_arr</b></i> [ <i>tamaño_arr</i> ] = {<i>lista inicialización</i>}
+</pre>
 
 Ejemplo:
 
 ``` C++
-int valores[4] = { [1]=20, [3]=40 }; // define [0, 20, 0, 40]
+int mi_array[4] = { [1]=20, [3]=40 }; // define [0, 20, 0, 40]
+int mi_array[] = {0, 20, 0 , 40};     // define [0, 20, 0, 40]
+int mi_array[4] = {0, 20, 0 , 40};    // define [0, 20, 0, 40]
 
-int valores[] = {0, 20, 0 , 40}; // define [0, 20, 0, 40]
-
-int valores[4] = {0, 20, 0 , 40}; // define [0, 20, 0, 40]
-
-int valores[4] = {}; // define [0, 0, 0, 0]
+int otro_array[4] = {}; // define [0, 0, 0, 0]
 ``` 
+
+![arrays](img/arrays.png)
+
+Otra forma equivalente de ver el mismo array en memoria sería:
+
+![arrays](img/arrays2.png)
+
 
 ### Acceso a elementos del arreglo
 
-La sintaxis es:
+La sintaxis para acceder a los elementos de un array es:
 
-``` C++
-nombre_arr[index];
+<pre>
+<i><b>nombre_arr</b></i>[<i>index</i>];
+</pre>
+
+Ejemplo:
+
+```C++
+int arr[7];
+
+for(size_t i=0; i<7; ++i){
+    arr[i] = i;
+}
 ```
+
+### Equivalencia entre punteros y arreglos
+
+En C, los arreglos son punteros. Esto quiere decir que un array es un puntero a la dirección de memoria del primer elemento del array. Esto es así porque los arrays son contiguos en memoria, por lo tanto, si tenemos la dirección de memoria del primer elemento, podemos calcular la dirección de memoria del segundo elemento, sumando el tamaño del tipo de dato del array. Si tenemos la dirección de memoria del segundo elemento, podemos calcular la dirección de memoria del tercer elemento, sumando el tamaño del tipo de dato del array, y así sucesivamente.
+
+Ejemplo:
+
+```C++
+int arr[7] = {1,2,3,4,5,6,7};
+int *p = arr; // p apunta a la dirección de memoria del primer elemento del array
+
+printf("%d\n", *p); // imprime 1
+printf("%d\n", *(p+1)); // imprime 2
+printf("%d\n", *(p+2)); // imprime 3
+printf("%d\n", p[4]); // imprime 5
+```
+
+Acá tenemos que prestar atención a varias cosas:
+* `p` es un puntero a int, por lo tanto, al hacer `p+1` estamos sumando 4 bytes a la dirección de memoria de `p` (en una arquitectura de 64 bits)
+* `p` apunta a la dirección de memoria del primer elemento del array, por lo tanto, al hacer `p+1` estamos apuntando a la dirección de memoria del segundo elemento del array
+* `p[4]` es equivalente a `*(p+4)`, es decir, estamos accediendo al quinto elemento del array
+
+Con lo cual una conclusión importante sería que la notación de corchetes, es equivalente a la notación de punteros. Esto es así porque el compilador, cuando ve que estamos accediendo a un elemento de un array, lo que hace es calcular la dirección de memoria del elemento que queremos acceder y luego desreferenciarla. Es decir, cuando hacemos `p[4]`, el compilador lo que hace es calcular la dirección de memoria del quinto elemento del array y luego desreferenciarla. Esto es equivalente a hacer `*(p+4)`.
+
+```C++
+p[0] == *(p+0) == *p
+p[1] == *(p+1)
+...
+p[n] == *(p+n)
+```
+
+Esto es sumamente importante, ya que nos permite pasar arrays a funciones, sin tener que copiarlos. Si pasamos un array a una función, lo que estamos pasando es un puntero a la dirección de memoria del primer elemento del array. Por lo tanto, la función puede acceder a los elementos del array sin problemas, a través del puntero y nos evitamos tener que copiar un montón de memoria de manera ineficiente.
+
+Un ejemplo de lo anterior sería:
+
+```C++
+void print_array(int *arr, size_t length){
+    for(size_t i=0; i<length; ++i){
+        printf("%d\n", arr[i]);
+    }
+}
+```
+
+Notar como el primer argumento es un puntero a int. Esto es equivalente a un array de int. Por lo tanto, podemos pasarle un array de int sin problemas. Y el segundo argumento es el tamaño del array. Esto es necesario porque el puntero no sabe cuántos elementos tiene el array. Por lo tanto, tenemos que pasarle el tamaño del array a la función.
 
 ## Strings
 
 La sintaxis es:
 
-``` C++
-char <nombre_str> [cantidad_elementos/ nada] = {string}
-``` 
+<pre>
+char <i><b>nombre_str</i></b> [<i>cantidad_elementos</i>] = <i>inicializador</i>;
+ </pre>
 
-La cantidad de caracteres en un string es su longitud+1 ya que, como por dentro es un array de chars, este le indica que es un string con el carácter `\0` a lo último. Por la misma razón, (cada char ocupa un byte) no hay problema con el endianness.
+El tamaño de un string es la cantidad de caracteres que tiene el string, más el caracter nulo `\0`. Por lo tanto, si queremos almacenar un string de 5 caracteres, tenemos que reservar 6 bytes de memoria.
 
 Ejemplo:
 
 ``` C++
 int main(){
 
-   char cadena[] = "hola"; // = {“h”, “o”, “l”, “a”, “\0”}
+   char cadena[] = "hola"; // equivalente a {'h', 'o', 'l', 'a', '\0'}
 
-   printf("%s\n", cadena[0]);
+   printf("%s\n", cadena);
 
    return 0;
 
 }
-
->> h
 ``` 
+
+```output
+hola
+``` 
+
+Notar que la notación entre comillas dobles `""` es equivalente a la notación entre llaves `{}`. Esto es así porque el compilador, cuando ve que estamos inicializando un array de caracteres con una cadena de caracteres, lo que hace es inicializar el array con los caracteres de la cadena, más el caracter nulo `\0`.
 
 <div style="page-break-after: always;"></div>
 
@@ -637,10 +725,7 @@ char s2[] = "hola";
 
 if (strcmp(s1, s2) == 0) {...}
 
->> true
-
 ``` 
-
 
 ## Estructuras
 ### Definición de estructuras
