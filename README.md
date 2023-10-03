@@ -727,6 +727,22 @@ if (strcmp(s1, s2) == 0) {...}
 
 ``` 
 
+Cuando pasamos un array a una función, no es necesario que le pasemos el tamaño del array, ya que el array contiene el caracter nulo `\0` al final. Por lo tanto, la función puede saber cuál es el tamaño del array, leyendo el array hasta encontrar el caracter nulo `\0`.
+
+Ejemplo:
+
+```C++
+void print_string(char *str){
+    for(size_t i=0; str[i] != '\0'; ++i){
+        printf("%c", str[i]);
+    }
+    printf("\n");
+}
+```
+
+Obviamente si el array no se encuentra bien formado, es decir, no tiene el caracter nulo `\0` al final, la función no va a saber cuál es el tamaño del array y va a seguir leyendo memoria hasta encontrar el caracter nulo `\0`. Esto es un comportamiento indefinido y puede llevar a errores de ejecución.
+
+
 ## Estructuras
 ### Definición de estructuras
 
