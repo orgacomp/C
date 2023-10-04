@@ -640,6 +640,36 @@ for(size_t i=0; i<7; ++i){
 }
 ```
 
+### Arreglos multidimensionales
+
+La sintaxis es:
+
+<pre>
+<i>tipo de dato</i> <i><b>nombre_arr</b></i> [ <i>tamaño_arr1</i> ][ <i>tamaño_arr2</i> ] = {<i>lista inicialización</i>}
+</pre>
+
+Ejemplo:
+
+```C++
+int arr[2][3] = {{1,2,3}, {4,5,6}};
+```
+
+Para declarar tomar como parámetro un array de dos dimensiones, se debe especificar el tamaño de la segunda dimensión. Esto es así porque el compilador necesita saber el tamaño de la segunda dimensión para poder calcular la dirección de memoria de cada elemento del array. Esto es así porque los arrays son contiguos en memoria, por lo tanto, si tenemos la dirección de memoria del primer elemento del array, podemos calcular la dirección de memoria del segundo elemento, sumando el tamaño del tipo de dato del array. Si tenemos la dirección de memoria del segundo elemento, podemos calcular la dirección de memoria del tercer elemento, sumando el tamaño del tipo de dato del array, y así sucesivamente.
+
+Un ejemplo de una función que recibe un array multidimensional sería:
+
+```C++
+void print_array(int arr[][3], size_t length){
+    for(size_t i=0; i<length; ++i){
+        for(size_t j=0; j<3; ++j){
+            printf("%d\n", arr[i][j]);
+        }
+    }
+}
+```
+
+
+
 ### Equivalencia entre punteros y arreglos
 
 En C, los arreglos son punteros. Esto quiere decir que un array es un puntero a la dirección de memoria del primer elemento del array. Esto es así porque los arrays son contiguos en memoria, por lo tanto, si tenemos la dirección de memoria del primer elemento, podemos calcular la dirección de memoria del segundo elemento, sumando el tamaño del tipo de dato del array. Si tenemos la dirección de memoria del segundo elemento, podemos calcular la dirección de memoria del tercer elemento, sumando el tamaño del tipo de dato del array, y así sucesivamente.
