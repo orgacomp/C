@@ -5,11 +5,10 @@
 //  donde x es un entero (int)   Ejemplos sumBytePos(0xF0000100) = 0, sumBytePos(0x00109A45) = 239
 //  Operadores permitidos: ! ~ & ^ | + << >>
 
-
 int sumBytePos(int x)
 {
     int sign = (x >> 31);
-    //x = x & ~sign;
+    // x = x & ~sign;
 
     int byte0 = (x >> 0) & 0xFF;
     int byte1 = (x >> 8) & 0xFF;
@@ -22,7 +21,7 @@ int sumBytePos(int x)
 // Calcula un circular shift de x en n bytes a la derecha si shift = 1, a la izquierda si shift = -1
 int circularShift(int x, int n, int shift)
 {
-    // x un int de 32 bits, 0<=n<=4 , shift = 1 derecha,  shift = -1 izquierda
+    // x un int de 32 bits, 0<n<4 , shift = 1 derecha,  shift = -1 izquierda
     // x= 0xFADEAAAA n=3, shift= 1 , -1  => res = 0xDEAAAAFA, res = 0xAAFADEAA
 
     // 0xFFFF FFFF => 0xFFF0 0000
@@ -35,7 +34,6 @@ int circularShift(int x, int n, int shift)
     int s_i_ad = x & bytes_si;
 
     int s_i_at = x & (~bytes_si);
-
 
     int s_d_at = x & bytes_sd;
     int s_d_ad = x & (~bytes_sd);
