@@ -4,7 +4,7 @@ CFLAGS=-Wall -Wextra -z noexecstack -pedantic -Wno-unused-variable -Wno-unused-p
 all: numeros funciones ejercicios
 
 # make numeros
-# ./numeros test.txt
+# ./numeros
 # para correr el programa de numeros.c
 numeros: numeros.c funciones.o
 	$(CC) $(CFLAGS) $^ -o $@

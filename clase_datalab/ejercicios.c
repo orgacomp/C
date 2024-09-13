@@ -5,10 +5,11 @@
 //  donde x es un entero (int)   Ejemplos sumBytePos(0xF0000100) = 0, sumBytePos(0x00109A45) = 239
 //  Operadores permitidos: ! ~ & ^ | + << >>
 
+
 int sumBytePos(int x)
 {
     int sign = (x >> 31);
-    // x = x & ~sign;
+    //x = x & ~sign;
 
     int byte0 = (x >> 0) & 0xFF;
     int byte1 = (x >> 8) & 0xFF;
@@ -34,6 +35,7 @@ int circularShift(int x, int n, int shift)
     int s_i_ad = x & bytes_si;
 
     int s_i_at = x & (~bytes_si);
+
 
     int s_d_at = x & bytes_sd;
     int s_d_ad = x & (~bytes_sd);
